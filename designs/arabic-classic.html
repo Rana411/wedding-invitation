@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سارة & أحمد · Arabic Classic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/2-arabic-classic.css">
+</head>
+<body>
+
+<a class="back-link" href="../index.html">← كل التصاميم</a>
+
+<!-- ============ COVER ============ -->
+<div class="cover-screen" id="coverScreen">
+  <div class="invite-card" onclick="openInvitation()">
+
+    <!-- زخرفة إسلامية SVG -->
+    <svg class="arabic-ornament" viewBox="0 0 400 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- نجوم في الزوايا -->
+      <g fill="#B8935A" opacity="0.5">
+        <circle cx="30" cy="30" r="3"/>
+        <circle cx="370" cy="30" r="3"/>
+        <circle cx="30" cy="530" r="3"/>
+        <circle cx="370" cy="530" r="3"/>
+        <circle cx="200" cy="20" r="2"/>
+        <circle cx="200" cy="540" r="2"/>
+      </g>
+      <!-- خطوط إسلامية علوية وسفلية -->
+      <path d="M 50 30 Q 200 10 350 30" stroke="#B8935A" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M 50 530 Q 200 550 350 530" stroke="#B8935A" stroke-width="1" fill="none" opacity="0.5"/>
+      <!-- زخرفة جانبية -->
+      <g stroke="#B8935A" stroke-width="1" fill="none" opacity="0.4">
+        <path d="M 20 200 Q 40 220 20 240"/>
+        <path d="M 20 250 Q 40 270 20 290"/>
+        <path d="M 20 300 Q 40 320 20 340"/>
+        <path d="M 380 200 Q 360 220 380 240"/>
+        <path d="M 380 250 Q 360 270 380 290"/>
+        <path d="M 380 300 Q 360 320 380 340"/>
+      </g>
+    </svg>
+
+    <div class="card-bismillah">﷽</div>
+
+    <div class="card-ornament-line">
+      <span></span><span class="star">✦</span><span></span>
+    </div>
+
+    <div class="card-kicker">يتشرفان بدعوتكم</div>
+    <h2 class="card-names">
+      سارة
+      <span class="amp">&</span>
+      أحمد
+    </h2>
+    <div class="card-date">
+      <span>١٠</span><span class="dot-sep">✦</span>
+      <span>١٢</span><span class="dot-sep">✦</span>
+      <span>٢٠٢٦</span>
+    </div>
+
+    <div class="card-tap">
+      <span>اضغط لفتح الدعوة</span>
+      <div class="arrow"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN ============ -->
+<div class="main-wrap" id="mainWrap">
+
+  <div class="hero">
+    <div class="kicker">﷽</div>
+    <h1 class="names">سارة<span class="amp">&</span>أحمد</h1>
+    <p class="lead">بكل الحب والسرور، نتشرف بدعوتكم لحضور حفل زفافنا. حضوركم يزيدنا فرحًا وسعادة.</p>
+    <div class="date-badge">
+      <b>الجمعة ١٠ ديسمبر ٢٠٢٦</b>
+      <span>٧:٠٠ مساءً · القاهرة، مصر</span>
+    </div>
+  </div>
+
+  <div class="divider"><span></span><span class="star">✦</span><span></span></div>
+
+  <div class="couple-frame">
+    <div class="photo-slot left" onclick="triggerUpload('bride')" title="اضغطي لتغيير صورة العروسة">
+      <img data-role="bride-img" src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=600&q=80&auto=format&fit=crop" alt="العروسة">
+      <div class="hint">تغيير</div>
+    </div>
+    <div class="heart-mid">♥</div>
+    <div class="photo-slot right" onclick="triggerUpload('groom')" title="اضغطي لتغيير صورة العريس">
+      <img data-role="groom-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop" alt="العريس">
+      <div class="hint">تغيير</div>
+    </div>
+  </div>
+  <p class="photo-note">اضغطي على أي صورة لرفع صورة من جهازك.</p>
+  <input type="file" id="fileInput" accept="image/*" class="visually-hidden">
+
+  <div class="quote-card">
+    <p>﴿وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً﴾</p>
+    <small>— سورة الروم، الآية ٢١</small>
+  </div>
+
+  <div class="divider"><span></span><span class="star">✦</span><span></span></div>
+
+  <h2 class="section-title">تفاصيل الحفل</h2>
+  <div class="details-grid">
+    <div class="detail-card">
+      <span class="ic">📅</span>
+      <b>التاريخ</b>
+      <span>الجمعة ١٠ ديسمبر ٢٠٢٦<br>٧:٠٠ مساءً</span>
+    </div>
+    <div class="detail-card">
+      <span class="ic">📍</span>
+      <b>المكان</b>
+      <span>فندق كمبينسكي نايل<br>القاهرة، مصر</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">العدّ التنازلي</h2>
+  <div class="countdown">
+    <div class="cd-box"><b id="cdDays">--</b><span>يوم</span></div>
+    <div class="cd-box"><b id="cdHours">--</b><span>ساعة</span></div>
+    <div class="cd-box"><b id="cdMin">--</b><span>دقيقة</span></div>
+    <div class="cd-box"><b id="cdSec">--</b><span>ثانية</span></div>
+  </div>
+
+  <h2 class="section-title">لحظاتنا</h2>
+  <div class="gallery">
+    <div class="gallery-item wide" onclick="triggerUpload('gallery-0')">
+      <img data-role="gallery-0-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">تغيير</div>
+    </div>
+    <div class="gallery-item" onclick="triggerUpload('gallery-1')">
+      <img data-role="gallery-1-img" src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">تغيير</div>
+    </div>
+    <div class="gallery-item tall" onclick="triggerUpload('gallery-2')">
+      <img data-role="gallery-2-img" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">تغيير</div>
+    </div>
+    <div class="gallery-item" onclick="triggerUpload('gallery-3')">
+      <img data-role="gallery-3-img" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">تغيير</div>
+    </div>
+    <div class="gallery-item" onclick="triggerUpload('gallery-4')">
+      <img data-role="gallery-4-img" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">تغيير</div>
+    </div>
+    <div class="gallery-item wide" onclick="triggerUpload('gallery-5')">
+      <img data-role="gallery-5-img" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">تغيير</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">الألوان المقترحة</h2>
+  <div class="swatches">
+    <div class="swatch" style="background:#7C5B2E"></div>
+    <div class="swatch" style="background:#B8935A"></div>
+    <div class="swatch" style="background:#D4B98A"></div>
+  </div>
+  <p class="dress-text">يسعدنا حضوركم بألوان دافئة تتناسب مع الأجواء الرومانسية للحفل.</p>
+
+  <h2 class="section-title">شاركنا الفرحة</h2>
+  <div class="action-bar">
+    <button class="action-btn" onclick="shareWhatsApp()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      واتساب
+    </button>
+    <button class="action-btn" onclick="copyLink()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      نسخ اللينك
+    </button>
+    <button class="action-btn" onclick="addToCalendar()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      أضف للتقويم
+    </button>
+    <button class="action-btn" onclick="openMap()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      الموقع
+    </button>
+  </div>
+
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.3724238137!2d31.2337!3d30.0444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAyJzM5LjgiTiAzMcKwMTQnMDEuMyJF!5e0!3m2!1sen!2seg!4v1700000000000"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <div class="divider" style="margin-top:50px;"><span></span><span class="star">✦</span><span></span></div>
+
+  <h2 class="section-title">اترك لنا تهنئة</h2>
+  <div class="wish-form">
+    <input type="text" id="wishName" placeholder="اسمك" maxlength="40">
+    <textarea id="wishMsg" placeholder="اكتبي تهنئتك للعروسين..." maxlength="240"></textarea>
+    <button id="wishBtn" onclick="submitWish()">إرسال التهنئة</button>
+    <div class="form-msg" id="wishFormMsg"></div>
+  </div>
+  <div class="wishes-list" id="wishesList"></div>
+  <div class="wish-counter" id="wishCounter"></div>
+
+  <footer>
+    <b>سارة &amp; أحمد</b>
+    بكل الحب، في انتظار مشاركتكم فرحتنا 🤍
+  </footer>
+
+</div>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="موسيقى">🔇</button>
+
+<audio id="bgMusic" loop preload="none">
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_5c1c7c1e5e.mp3?filename=wedding-day-117995.mp3" type="audio/mpeg">
+</audio>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  window.INVITE_CONFIG = {
+    theme: 'arabic-classic',
+    weddingDate: '2026-12-10T19:00:00',
+    weddingEnd: '2026-12-10T23:00:00',
+    storagePrefix: 'arabic-classic-',
+    venueName: 'Kempinski Nile Hotel, Cairo',
+    venueLat: 30.0444,
+    venueLng: 31.2357
+  };
+</script>
+<script src="../js/invitation.js"></script>
+
+</body>
+</html>
