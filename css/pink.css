@@ -1,5 +1,5 @@
 /* ============================================================
-   PINK ROSES — تصميم 7 (English)
+   PINK ROSES — تصميم 7 (رومانسي وردي)
    ============================================================ */
 :root{
   --bg:#FBE8E8;
@@ -13,23 +13,6 @@
   --font-head:'Playfair Display', serif;
   --font-script:'Dancing Script', cursive;
   --font-body:'EB Garamond', serif;
-}
-
-/* ============================================================
-   PREVIEW MODE — عشان الـ iframe في المعرض
-   ============================================================ */
-body.preview-mode .back-link{ display:none !important; }
-body.preview-mode .music-btn{ display:none !important; }
-body.preview-mode .main-wrap{ display:none !important; }
-body.preview-mode .cover-screen{
-  position:relative !important;
-  inset:auto !important;
-  min-height:100vh;
-  padding:20px;
-}
-body.preview-mode .invite-card{
-  animation:none !important;
-  transform:none !important;
 }
 
 *{box-sizing:border-box;}
@@ -76,9 +59,9 @@ body{
 
 .invite-card{
   position:relative;
-  width:min(420px, 92vw);
+  width:min(400px, 92vw);
   aspect-ratio:5/7;
-  background:var(--surface);
+  background:#FFF5F5;
   border:2px solid var(--accent);
   border-radius:20px;
   box-shadow:
@@ -86,8 +69,8 @@ body{
     0 0 0 1px rgba(255,255,255,.5) inset;
   cursor:pointer;
   display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding:44px 34px;
+  align-items:center;
+  padding:0;
   text-align:center;
   overflow:hidden;
   transition:transform .6s cubic-bezier(.2,.8,.2,1);
@@ -97,31 +80,48 @@ body{
   0%,100%{ transform:translateY(0) rotate(-.4deg); }
   50%{ transform:translateY(-8px) rotate(.4deg); }
 }
-.invite-card:hover{ transform:translateY(-12px) rotate(0) scale(1.02); box-shadow: 0 60px 120px rgba(155,51,80,.3); }
+.invite-card:hover{ transform:translateY(-12px) rotate(0) scale(1.02); }
 .invite-card::before{
   content:''; position:absolute; inset:14px;
   border:1px solid var(--accent);
   border-radius:14px;
-  opacity:.5; pointer-events:none;
+  opacity:.5; pointer-events:none; z-index:1;
 }
 
-.pink-ornament{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  pointer-events:none; z-index:1;
+/* زهور SVG في الزوايا */
+.pink-corner{
+  position:absolute;
+  width:130px;
+  height:130px;
+  pointer-events:none;
+  z-index:2;
+}
+.pink-tl{ top:-10px; left:-10px; }
+.pink-tr{ top:-10px; right:-10px; transform:scaleX(-1); }
+.pink-bl{ bottom:-10px; left:-10px; transform:scaleY(-1); }
+.pink-br{ bottom:-10px; right:-10px; transform:scale(-1,-1); }
+
+.card-content{
+  position:relative; z-index:3;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  flex:1;
+  padding:70px 30px 90px;
+  width:100%;
 }
 
 .card-ornament{
   display:flex; align-items:center; justify-content:center;
   gap:10px;
   margin-bottom:22px;
-  position:relative; z-index:2;
+  width:50%;
 }
-.card-ornament span{
-  height:1px; width:44px;
+.card-ornament span:first-child,
+.card-ornament span:last-child{
+  height:1px; flex:1;
   background:linear-gradient(to right, transparent, var(--accent), transparent);
 }
-.card-ornament .heart-icon{
+.card-ornament .heart{
   color:var(--accent);
   font-size:1rem;
 }
@@ -131,17 +131,16 @@ body{
   font-size:1.4rem;
   color:var(--heading);
   margin-bottom:18px;
-  position:relative; z-index:2;
   letter-spacing:.02em;
 }
+
 .card-names{
   font-family:var(--font-head);
-  font-size:clamp(2rem, 8vw, 3rem);
+  font-size:clamp(1.9rem, 8vw, 2.5rem);
   line-height:1.2;
   color:var(--heading);
   font-weight:600;
   margin:0;
-  position:relative; z-index:2;
 }
 .card-names .amp{
   font-family:var(--font-script);
@@ -152,38 +151,85 @@ body{
   font-weight:400;
   line-height:1;
 }
-.card-date{
+
+.card-date-main{
   font-family:var(--font-body);
   font-size:.85rem;
-  letter-spacing:.4em;
   color:var(--muted);
-  margin-top:28px;
-  position:relative; z-index:2;
-  text-transform:uppercase;
-}
-.card-tap{
-  margin-top:42px;
-  display:flex; flex-direction:column;
-  align-items:center; gap:10px;
-  color:var(--heading);
-  font-size:.7rem;
-  letter-spacing:.3em;
+  letter-spacing:.4em;
+  margin-top:24px;
   font-weight:500;
   text-transform:uppercase;
-  animation: tapPulse 2.4s ease-in-out infinite;
-  position:relative; z-index:2;
-}
-@keyframes tapPulse{
-  0%,100%{ opacity:.5; transform:translateY(0); }
-  50%{ opacity:1; transform:translateY(4px); }
-}
-.card-tap .arrow{
-  width:22px; height:22px;
-  border-right:1.5px solid currentColor;
-  border-bottom:1.5px solid currentColor;
-  transform:rotate(45deg);
 }
 
+.card-details-icons{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:22px;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  width:100%;
+  max-width:270px;
+}
+.detail-icon{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  flex:1;
+}
+.detail-icon svg{
+  width:18px; height:18px;
+  color:var(--heading);
+}
+.detail-icon span{
+  font-size:.65rem;
+  color:var(--muted);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.card-tap{
+  margin-top:26px;
+  font-family:var(--font-body);
+  font-size:.65rem;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:var(--heading);
+  font-weight:500;
+  animation: tapPulse 2.5s ease-in-out infinite;
+}
+@keyframes tapPulse{
+  0%,100%{ opacity:.5; }
+  50%{ opacity:1; }
+}
+
+.couple-photo{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  height:110px;
+  z-index:4;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  pointer-events:none;
+}
+.couple-photo img{
+  width:130px;
+  height:110px;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:50% 50% 0 0;
+  -webkit-mask-image:linear-gradient(to bottom, black 40%, transparent 100%);
+  mask-image:linear-gradient(to bottom, black 40%, transparent 100%);
+}
+
+/* ===== Main ===== */
 .main-wrap{
   max-width:720px; margin:0 auto;
   padding:60px 22px 40px;
@@ -224,9 +270,9 @@ body{
   display:inline-flex; flex-direction:column; gap:4px;
   margin-top:28px; padding:16px 36px;
   border:1px solid var(--accent);
-  border-radius:999px;
   background:var(--surface);
   box-shadow: 0 12px 30px rgba(155,51,80,.12);
+  border-radius:999px;
 }
 .date-badge b{
   font-size:1rem; color:var(--heading);
@@ -462,7 +508,7 @@ body{
   background:var(--heading);
   color:#FFF5F5;
   font-family:var(--font-body);
-  font-weight:600;
+  font-weight:500;
   padding:12px 36px;
   font-size:.75rem;
   letter-spacing:.2em;
@@ -533,7 +579,6 @@ body{
   transform:translateY(-2px);
   box-shadow:0 8px 20px rgba(155,51,80,.18);
 }
-.action-btn svg{ width:14px; height:14px; }
 
 .map-container{
   margin-top:28px;
@@ -616,26 +661,7 @@ footer b{
   .cd-box{ width:68px; padding:12px 0; }
   .cd-box b{ font-size:1.3rem; }
   .back-link{ top:14px; left:14px; padding:8px 14px; font-size:.75rem; }
-}
-
-/* ============================================================
-   Couple image in cover card
-   ============================================================ */
-.invite-card .couple-img{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid rgba(255,255,255,.85);
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
-  margin-bottom:12px;
-  position:relative;
-  z-index:2;
-}
-
-@media (max-width:480px){
-  .invite-card .couple-img{
-    width:56px;
-    height:56px;
-  }
+  .couple-photo img{ width:110px; height:95px; }
+  .invite-card{ width:min(360px, 92vw); }
+  .pink-corner{ width:100px; height:100px; }
 }
