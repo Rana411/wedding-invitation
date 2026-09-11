@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarah & Ahmed · Noir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#161310; --surface:#221C17; --text:#F0E8DB; --muted:#A89A87;
+    --heading:#E0BE7A; --accent:#E0BE7A; --line:#3A3128;
+    --font-head:'Cormorant Garamond', serif; --font-body:'EB Garamond', serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:16px; -webkit-font-smoothing:antialiased;}
+
+  .back-link{
+    position:fixed; top:20px; left:20px; z-index:600;
+    padding:10px 18px; background:rgba(34,28,23,.9);
+    border:1px solid rgba(224,190,122,.3); color:var(--heading);
+    text-decoration:none; font-size:.82rem; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase;
+    backdrop-filter:blur(10px); border-radius:999px;
+  }
+
+  .cover-screen{
+    position:fixed; inset:0; z-index:500;
+    background:radial-gradient(ellipse at center, #1F1A15 0%, #0F0D0A 100%);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+    transition:opacity .8s ease;
+  }
+  .cover-screen.hidden{ opacity:0; pointer-events:none; }
+
+  .invite-card{
+    position:relative;
+    width:min(420px, 92vw);
+    aspect-ratio:5/7;
+    background:linear-gradient(160deg, #221C17 0%, #1A1612 100%);
+    border:1px solid rgba(224,190,122,.35);
+    border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+    cursor:pointer;
+    padding:44px 34px;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    box-shadow:
+      0 40px 100px rgba(0,0,0,.6),
+      0 0 0 1px rgba(224,190,122,.1) inset;
+    transition:transform .6s;
+  }
+  .invite-card:hover{ transform:translateY(-10px); }
+  .invite-card::before{
+    content:''; position:absolute; inset:16px;
+    border:1px solid rgba(224,190,122,.2);
+    border-radius:inherit;
+  }
+
+  .stars{ position:absolute; inset:0; pointer-events:none; }
+  .stars circle{ fill:var(--accent); opacity:.7; }
+
+  .card-ornament{
+    display:flex; align-items:center; justify-content:center;
+    gap:12px; margin-bottom:24px; position:relative; z-index:2;
+  }
+  .card-ornament span{
+    height:1px; width:50px;
+    background:linear-gradient(to right, transparent, var(--line), transparent);
+  }
+  .card-ornament .diamond{
+    width:10px; height:10px; background:var(--accent);
+    transform:rotate(45deg);
+    box-shadow:0 0 12px var(--accent);
+  }
+
+  .card-kicker{
+    font-size:.7rem; letter-spacing:.35em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:20px; z-index:2; position:relative;
+  }
+  .card-names{
+    font-family:var(--font-head);
+    font-size:clamp(2.2rem, 9vw, 3.5rem);
+    color:var(--heading); font-weight:600;
+    line-height:1.1; margin:0; z-index:2; position:relative;
+  }
+  .card-names .amp{
+    display:block; font-style:italic; color:var(--accent);
+    font-size:.7em; margin:8px 0; font-weight:400;
+  }
+  .card-date{
+    font-size:.8rem; letter-spacing:.3em; text-transform:uppercase;
+    color:var(--muted); margin-top:24px; z-index:2; position:relative;
+  }
+  .card-tap{
+    margin-top:44px; font-size:.7rem; letter-spacing:.3em;
+    text-transform:uppercase; color:var(--accent);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    animation:pulse 2.5s infinite; z-index:2; position:relative;
+  }
+  @keyframes pulse{ 0%,100%{opacity:.5;} 50%{opacity:1;} }
+  .card-tap .arrow{
+    width:22px; height:22px;
+    border-right:1.5px solid var(--accent);
+    border-bottom:1.5px solid var(--accent);
+    transform:rotate(45deg);
+  }
+
+  .main-wrap{
+    max-width:720px; margin:0 auto; padding:80px 22px 40px;
+    opacity:0; transform:translateY(30px);
+    transition:opacity .9s ease .3s, transform .9s ease .3s;
+  }
+  .main-wrap.visible{ opacity:1; transform:translateY(0); }
+
+  .hero{ text-align:center; padding-bottom:20px; }
+  .hero .kicker{
+    font-size:.8rem; letter-spacing:.15em; color:var(--muted);
+    margin-bottom:18px; text-transform:uppercase;
+  }
+  .hero .names{
+    font-family:var(--font-head);
+    font-size:clamp(2.5rem, 10vw, 4rem);
+    color:var(--heading); font-weight:600;
+    line-height:1.1; margin:0 0 20px;
+  }
+  .hero .names .amp{
+    font-style:italic; color:var(--accent);
+    font-size:.55em; margin:0 14px;
+  }
+  .hero .lead{
+    font-size:1rem; color:var(--muted); line-height:1.8;
+    max-width:440px; margin:0 auto 24px;
+    font-style:italic;
+  }
+  .date-badge{
+    display:inline-block; padding:14px 32px;
+    border:1px solid rgba(224,190,122,.35);
+    color:var(--heading); font-size:.85rem;
+    letter-spacing:.15em; text-transform:uppercase;
+    border-radius:2px;
+  }
+
+  .divider{
+    display:flex; align-items:center; justify-content:center;
+    gap:14px; margin:42px auto; max-width:280px;
+  }
+  .divider span{
+    height:1px; flex:1;
+    background:linear-gradient(to right, transparent, var(--line), transparent);
+  }
+  .divider .diamond{
+    width:8px; height:8px; background:var(--accent);
+    transform:rotate(45deg);
+    box-shadow:0 0 8px var(--accent);
+  }
+
+  .section-title{
+    text-align:center; font-family:var(--font-head);
+    font-size:1.6rem; font-weight:600;
+    color:var(--heading); margin:52px 0 26px;
+    letter-spacing:.05em;
+  }
+  .section-title::after{
+    content:''; display:block; width:40px; height:1px;
+    background:var(--accent); margin:12px auto 0;
+    box-shadow:0 0 8px var(--accent);
+  }
+
+  .couple-frame{
+    display:flex; justify-content:center; align-items:flex-end;
+    gap:0; margin:40px 0 8px;
+  }
+  .photo-slot{
+    width:155px; height:210px;
+    border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;
+    border:1px solid var(--accent);
+    overflow:hidden; cursor:pointer;
+    position:relative; flex-shrink:0;
+    background:var(--surface);
+    box-shadow:0 0 40px rgba(224,190,122,.15);
+  }
+  .photo-slot img{ width:100%; height:100%; object-fit:cover; }
+  .photo-slot .hint{
+    position:absolute; inset:0;
+    background:rgba(0,0,0,.7); color:var(--heading);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.7rem; letter-spacing:.15em;
+    text-transform:uppercase; opacity:0; transition:.3s;
+  }
+  .photo-slot:hover .hint{ opacity:1; }
+  .photo-slot.left{ margin-inline-end:-20px; }
+  .photo-slot.right{ margin-inline-start:-20px; }
+
+  .heart-mid{
+    width:40px; height:40px; border-radius:50%;
+    background:var(--accent); color:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; z-index:2; flex-shrink:0;
+    box-shadow:0 0 20px var(--accent);
+    position:relative;
+  }
+
+  .photo-note{ text-align:center; font-size:.75rem; color:var(--muted); margin-top:14px; font-style:italic; }
+
+  .quote-card{
+    text-align:center; padding:32px 24px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    margin:40px 0;
+  }
+  .quote-card p{
+    font-family:var(--font-head);
+    font-size:1.4rem; line-height:1.6;
+    font-style:italic; color:var(--text);
+    margin:0;
+  }
+  .quote-card small{
+    display:block; margin-top:16px;
+    font-size:.75rem; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--accent);
+  }
+
+  .details-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .detail-card{
+    padding:26px 18px; text-align:center;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:2px;
+  }
+  .detail-card .ic{ font-size:1.5rem; margin-bottom:12px; display:block; }
+  .detail-card b{
+    display:block; font-size:.85rem;
+    letter-spacing:.15em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:8px;
+  }
+  .detail-card span{ font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+  .countdown{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+  .cd-box{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:20px 0; width:84px; text-align:center;
+  }
+  .cd-box b{
+    display:block; font-family:var(--font-head);
+    font-size:1.8rem; font-weight:600;
+    color:var(--heading); margin-bottom:6px;
+  }
+  .cd-box span{
+    font-size:.65rem; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  .swatches{ display:flex; justify-content:center; gap:14px; margin:20px 0 16px; }
+  .swatch{
+    width:44px; height:44px; border-radius:50%;
+    border:1px solid var(--line);
+  }
+  .dress-text{ text-align:center; font-size:.9rem; color:var(--muted); line-height:1.8; font-style:italic; }
+
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px; }
+  .gallery-item{
+    aspect-ratio:1; overflow:hidden; cursor:pointer;
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:2px; position:relative;
+  }
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; }
+  .gallery-item .gallery-hint{
+    position:absolute; inset:0;
+    background:rgba(0,0,0,.7); color:var(--heading);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.7rem; letter-spacing:.15em;
+    text-transform:uppercase; opacity:0; transition:.3s;
+  }
+  .gallery-item:hover .gallery-hint{ opacity:1; }
+  .gallery-item.wide{ grid-column:span 2; aspect-ratio:2/1; }
+  .gallery-item.tall{ grid-row:span 2; aspect-ratio:1/2; }
+
+  .gallery-note{ text-align:center; font-size:.75rem; color:var(--muted); margin-top:14px; font-style:italic; }
+
+  .wish-form{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:24px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .wish-form input, .wish-form textarea{
+    font-family:var(--font-body); font-size:.9rem;
+    background:transparent; color:var(--text);
+    border:1px solid var(--line); border-radius:2px;
+    padding:12px 14px; resize:vertical;
+  }
+  .wish-form input:focus, .wish-form textarea:focus{
+    outline:none; border-color:var(--accent);
+    box-shadow:0 0 12px rgba(224,190,122,.2);
+  }
+  .wish-form textarea{ min-height:90px; }
+  .wish-form button{
+    align-self:flex-start; padding:12px 30px;
+    background:var(--accent); color:var(--bg);
+    border:none; border-radius:2px; cursor:pointer;
+    font-family:var(--font-body); font-weight:600;
+    font-size:.85rem; letter-spacing:.15em;
+    text-transform:uppercase;
+  }
+  .wish-form button:hover{ opacity:.9; }
+  .wish-form button:disabled{ opacity:.5; }
+  .form-msg{ font-size:.8rem; color:var(--accent); min-height:16px; }
+
+  .wishes-list{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .wish-item{
+    background:var(--surface);
+    border-left:2px solid var(--accent);
+    border-radius:2px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .wish-item b{ color:var(--heading); font-family:var(--font-head); font-size:.95rem; }
+  .wish-item p{ margin:6px 0 0; font-size:.88rem; line-height:1.7; color:var(--text); }
+  .wish-item .wish-time{ font-size:.7rem; color:var(--muted); margin-top:8px; display:block; font-style:italic; }
+  .wish-item .wish-del{
+    position:absolute; top:12px; right:14px;
+    background:none; border:none; color:var(--muted);
+    cursor:pointer; font-size:1rem; opacity:.4;
+  }
+  .wishes-empty{ text-align:center; font-size:.85rem; color:var(--muted); padding:16px; font-style:italic; }
+  .wish-counter{ font-size:.72rem; color:var(--muted); text-align:center; margin-top:12px; }
+
+  footer{
+    margin-top:56px; padding-top:30px;
+    border-top:1px solid var(--line);
+    text-align:center; padding-bottom:80px;
+  }
+  footer b{
+    display:block; font-family:var(--font-head);
+    font-size:1.15rem; color:var(--heading); margin-bottom:6px;
+  }
+  footer span{ font-size:.8rem; color:var(--muted); font-style:italic; }
+
+  .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.95);
+    display:none; align-items:center; justify-content:center; z-index:600; padding:20px; }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:90vw; max-height:85vh; border:1px solid var(--accent); }
+  .lightbox .close{ position:absolute; top:20px; right:24px;
+    color:var(--accent); font-size:2rem; background:none; border:none; cursor:pointer; }
+
+  .toast{ position:fixed; bottom:100px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--accent); color:var(--bg);
+    padding:14px 28px; border-radius:999px;
+    font-size:.85rem; font-weight:600;
+    opacity:0; pointer-events:none; transition:.3s; z-index:99;
+    letter-spacing:.05em; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .visually-hidden{ position:absolute; width:1px;height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+  @media(max-width:480px){
+    .photo-slot{ width:120px; height:160px; }
+    .details-grid{ grid-template-columns:1fr; }
+    .cd-box{ width:68px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="../index.html">← Back</a>
+
+<div class="cover-screen" id="coverScreen">
+  <div class="invite-card" onclick="openInvitation()">
+    <svg class="stars" viewBox="0 0 400 560" preserveAspectRatio="none">
+      <circle cx="50" cy="50" r="1.5"/>
+      <circle cx="350" cy="50" r="1.5"/>
+      <circle cx="50" cy="510" r="1.5"/>
+      <circle cx="350" cy="510" r="1.5"/>
+      <circle cx="200" cy="30" r="1"/>
+      <circle cx="200" cy="530" r="1"/>
+      <circle cx="30" cy="280" r="1"/>
+      <circle cx="370" cy="280" r="1"/>
+      <circle cx="100" cy="100" r="1"/>
+      <circle cx="300" cy="100" r="1"/>
+      <circle cx="100" cy="460" r="1"/>
+      <circle cx="300" cy="460" r="1"/>
+    </svg>
+
+    <div class="card-ornament">
+      <span></span><div class="diamond"></div><span></span>
+    </div>
+    <div class="card-kicker">You're Invited</div>
+    <h2 class="card-names">
+      Sarah
+      <span class="amp">&</span>
+      Ahmed
+    </h2>
+    <div class="card-date">10 · 12 · 2026</div>
+    <div class="card-tap">
+      <span>Tap to open</span>
+      <div class="arrow"></div>
+    </div>
+  </div>
+</div>
+
+<div class="main-wrap" id="mainWrap">
+  <div class="hero">
+    <div class="kicker">Together with our families</div>
+    <h1 class="names">Sarah<span class="amp">&</span>Ahmed</h1>
+    <p class="lead">Joyfully invite you to celebrate our wedding day.</p>
+    <div class="date-badge">10 December 2026 · Cairo</div>
+  </div>
+
+  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
+
+  <div class="couple-frame">
+    <div class="photo-slot left" onclick="triggerUpload('bride')">
+      <img data-role="bride-img" src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="hint">Change</div>
+    </div>
+    <div class="heart-mid">♥</div>
+    <div class="photo-slot right" onclick="triggerUpload('groom')">
+      <img data-role="groom-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="hint">Change</div>
+    </div>
+  </div>
+  <p class="photo-note">Tap either photo to change</p>
+  <input type="file" id="fileInput" accept="image/*" class="visually-hidden">
+
+  <div class="quote-card">
+    <p>"Among His signs is that He created for you mates, so that you may find tranquility in them, and He placed between you love and mercy."</p>
+    <small>— The Qur'an, 30:21</small>
+  </div>
+
+  <h2 class="section-title">The Details</h2>
+  <div class="details-grid">
+    <div class="detail-card">
+      <span class="ic">💍</span>
+      <b>The Date</b>
+      <span>Friday<br>10 December 2026</span>
+    </div>
+    <div class="detail-card">
+      <span class="ic">📍</span>
+      <b>The Venue</b>
+      <span>Kempinski Nile Hotel<br>Cairo, Egypt</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">Counting Down</h2>
+  <div class="countdown">
+    <div class="cd-box"><b id="cdDays">--</b><span>Days</span></div>
+    <div class="cd-box"><b id="cdHours">--</b><span>Hours</span></div>
+    <div class="cd-box"><b id="cdMin">--</b><span>Mins</span></div>
+    <div class="cd-box"><b id="cdSec">--</b><span>Secs</span></div>
+  </div>
+
+  <h2 class="section-title">Moments</h2>
+  <div class="gallery">
+    <div class="gallery-item wide" onclick="triggerUpload('gallery-0')">
+      <img data-role="gallery-0-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">Change</div>
+    </div>
+    <div class="gallery-item" onclick="triggerUpload('gallery-1')">
+      <img data-role="gallery-1-img" src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">Change</div>
+    </div>
+    <div class="gallery-item tall" onclick="triggerUpload('gallery-2')">
+      <img data-role="gallery-2-img" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">Change</div>
+    </div>
+    <div class="gallery-item" onclick="triggerUpload('gallery-3')">
+      <img data-role="gallery-3-img" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">Change</div>
+    </div>
+    <div class="gallery-item" onclick="triggerUpload('gallery-4')">
+      <img data-role="gallery-4-img" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">Change</div>
+    </div>
+    <div class="gallery-item wide" onclick="triggerUpload('gallery-5')">
+      <img data-role="gallery-5-img" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&q=80&auto=format&fit=crop" alt="">
+      <div class="gallery-hint">Change</div>
+    </div>
+  </div>
+  <p class="gallery-note">Tap any photo to change</p>
+
+  <h2 class="section-title">Palette</h2>
+  <div class="swatches">
+    <div class="swatch" style="background:#E0BE7A"></div>
+    <div class="swatch" style="background:#9A7542"></div>
+    <div class="swatch" style="background:#3A3128"></div>
+  </div>
+  <p class="dress-text">Candlelit elegance: deep, rich tones with a touch of gold shimmer.</p>
+
+  <h2 class="section-title">Leave a Wish</h2>
+  <div class="wish-form">
+    <input type="text" id="wishName" placeholder="Your name" maxlength="40">
+    <textarea id="wishMsg" placeholder="Your message..." maxlength="240"></textarea>
+    <button id="wishBtn" onclick="submitWish()">Send</button>
+    <div class="form-msg" id="wishFormMsg"></div>
+  </div>
+  <div class="wishes-list" id="wishesList"></div>
+  <div class="wish-counter" id="wishCounter"></div>
+
+  <footer>
+    <b>Sarah & Ahmed</b>
+    <span>We can't wait to celebrate with you 🤍</span>
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  const WEDDING_DATE = new Date('2026-12-10T19:00:00');
+  const PREFIX = 'noir-';
+  const mem = {};
+  const store = {
+    get(k,f=null){ try{const v=localStorage.getItem(k);if(v!==null)return v;}catch(e){} try{const v=sessionStorage.getItem(k);if(v!==null)return v;}catch(e){} return mem[k]??f; },
+    set(k,v){ try{localStorage.setItem(k,v);}catch(e){} try{sessionStorage.setItem(k,v);}catch(e){} mem[k]=v; return true; }
+  };
+
+  let toastTimer;
+  function showToast(m,ms=2500){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),ms); }
+
+  function openInvitation(){
+    const c=document.getElementById('coverScreen'), m=document.getElementById('mainWrap');
+    c.classList.add('hidden');
+    setTimeout(()=>{ c.style.display='none'; m.classList.add('visible'); window.scrollTo({top:0,behavior:'instant'}); showToast('Welcome 🤍'); },600);
+  }
+
+  function updateCountdown(){
+    let d=WEDDING_DATE-new Date(); if(d<0)d=0;
+    document.getElementById('cdDays').textContent=Math.floor(d/86400000);
+    document.getElementById('cdHours').textContent=Math.floor(d/3600000)%24;
+    document.getElementById('cdMin').textContent=Math.floor(d/60000)%60;
+    document.getElementById('cdSec').textContent=Math.floor(d/1000)%60;
+  }
+  updateCountdown(); setInterval(updateCountdown,1000);
+
+  let currentSlot=null;
+  const fileInput=document.getElementById('fileInput');
+  function triggerUpload(s){ currentSlot=s; fileInput.click(); }
+  fileInput.addEventListener('change',function(e){
+    const f=e.target.files[0]; if(!f||!currentSlot) return;
+    const r=new FileReader();
+    r.onload=function(ev){
+      const img=new Image();
+      img.onload=function(){
+        const mW=900, sc=Math.min(1,mW/img.width);
+        const c=document.createElement('canvas');
+        c.width=Math.floor(img.width*sc); c.height=Math.floor(img.height*sc);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        const u=c.toDataURL('image/jpeg',0.82);
+        const el=document.querySelector(`img[data-role="${currentSlot}-img"]`);
+        if(el) el.src=u;
+        store.set(PREFIX+'photo-'+currentSlot,u);
+        showToast('Updated');
+      };
+      img.src=ev.target.result;
+    };
+    r.readAsDataURL(f); e.target.value='';
+  });
+
+  (function loadPhotos(){
+    ['bride','groom','gallery-0','gallery-1','gallery-2','gallery-3','gallery-4','gallery-5'].forEach(s=>{
+      const v=store.get(PREFIX+'photo-'+s);
+      if(v){ const el=document.querySelector(`img[data-role="${s}-img"]`); if(el) el.src=v; }
+    });
+  })();
+
+  function openLightbox(s){ document.getElementById('lightboxImg').src=s; document.getElementById('lightbox').classList.add('open'); }
+  function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
+
+  const WK=PREFIX+'wishes';
+  function esc(s){ const d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
+  function fmt(ts){ const df=Math.floor((new Date()-new Date(ts))/1000); if(df<60)return'just now'; if(df<3600)return Math.floor(df/60)+'m ago'; if(df<86400)return Math.floor(df/3600)+'h ago'; return Math.floor(df/86400)+'d ago'; }
+  function getW(){ try{ return JSON.parse(store.get(WK,'[]')); }catch(e){ return []; } }
+  function saveW(l){ return store.set(WK,JSON.stringify(l.slice(-50))); }
+  function renderW(l){
+    const el=document.getElementById('wishesList'), cnt=document.getElementById('wishCounter');
+    if(!l||l.length===0){ el.innerHTML='<div class="wishes-empty">Be the first to wish 🤍</div>'; cnt.textContent=''; return; }
+    el.innerHTML=l.slice().reverse().map(w=>`<div class="wish-item"><button class="wish-del" onclick="deleteW(${w.ts})">×</button><b>${esc(w.name)}</b><p>${esc(w.message)}</p><span class="wish-time">${fmt(w.ts)}</span></div>`).join('');
+    cnt.textContent=l.length===1?'1 wish':l.length+' wishes';
+  }
+  function submitWish(){
+    const n=document.getElementById('wishName').value.trim();
+    const m=document.getElementById('wishMsg').value.trim();
+    const b=document.getElementById('wishBtn'), fm=document.getElementById('wishFormMsg');
+    if(!n||!m){ fm.textContent='Please add name and message'; return; }
+    b.disabled=true; fm.textContent='Sending...';
+    setTimeout(()=>{
+      const l=getW(); l.push({name:n,message:m,ts:Date.now()});
+      saveW(l); renderW(l);
+      document.getElementById('wishName').value='';
+      document.getElementById('wishMsg').value='';
+      fm.textContent='Sent 🤍'; showToast('Sent');
+      setTimeout(()=>fm.textContent='',3000);
+      b.disabled=false;
+    },300);
+  }
+  function deleteW(ts){ if(!confirm('Delete?')) return; const l=getW().filter(w=>w.ts!==ts); saveW(l); renderW(l); }
+  renderW(getW());
+</script>
+</body>
+</html>
