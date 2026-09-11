@@ -1,5 +1,5 @@
 /* ============================================================
-   WHITE FLORAL — تصميم Floral Cotton (جديد - زي صورة 1)
+   WHITE FLORAL — تصميم Floral Cotton (نسخة مصححة)
    ============================================================ */
 :root{
   --bg:#FAF7F2;
@@ -18,9 +18,6 @@
 html,body{margin:0;padding:0;}
 body{
   background:#FAF7F2;
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(201,162,39,.04), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(201,162,39,.03), transparent 50%);
   color:var(--text);
   font-family:var(--font-body);
   font-size:16px;
@@ -56,14 +53,12 @@ body{
 
 .invite-card{
   position:relative;
-  width:min(420px, 92vw);
+  width:min(400px, 92vw);
   aspect-ratio:5/7;
   background:#FFFFFF;
   border:1px solid var(--accent2);
-  border-radius:4px;
-  box-shadow:
-    0 40px 100px rgba(107,79,42,.2),
-    0 0 0 1px rgba(255,255,255,.5) inset;
+  border-radius:2px;
+  box-shadow: 0 40px 100px rgba(107,79,42,.2);
   cursor:pointer;
   display:flex; flex-direction:column;
   align-items:center;
@@ -79,116 +74,100 @@ body{
 }
 .invite-card:hover{ transform:translateY(-12px) rotate(0) scale(1.02); }
 .invite-card::before{
-  content:''; position:absolute; inset:10px;
+  content:''; position:absolute; inset:12px;
   border:1px solid var(--accent2);
-  border-radius:2px;
-  opacity:.5; pointer-events:none; z-index:1;
+  opacity:.4; pointer-events:none; z-index:1;
 }
 
-/* زهور PNG - الأعلى */
-.floral-top{
-  position:absolute; top:-20px; left:-20px; right:-20px;
+/* زهور PNG في الزوايا الأربع */
+.floral-corner{
+  position:absolute;
+  width:130px;
   height:130px;
-  overflow:hidden;
-  pointer-events:none; z-index:2;
-}
-.floral-top img{
-  width:100%; height:100%;
   object-fit:cover;
-  transform:rotate(180deg);
-  opacity:.9;
+  pointer-events:none;
+  z-index:2;
+  opacity:.85;
+  mix-blend-mode:multiply;
 }
+.floral-tl{ top:-15px; left:-15px; }
+.floral-tr{ top:-15px; right:-15px; transform:scaleX(-1); }
+.floral-bl{ bottom:-15px; left:-15px; transform:scaleY(-1); }
+.floral-br{ bottom:-15px; right:-15px; transform:scale(-1,-1); }
 
-/* زهور PNG - الأسفل */
-.floral-bottom{
-  position:absolute; bottom:-20px; left:-20px; right:-20px;
-  height:150px;
-  overflow:hidden;
-  pointer-events:none; z-index:2;
-}
-.floral-bottom img{
-  width:100%; height:100%;
-  object-fit:cover;
-  opacity:.9;
-}
-
-/* ﷽ ذهبي */
-.bismillah{
-  font-family:'Aref Ruqaa', serif;
-  font-size:1.8rem;
-  color:var(--accent);
-  margin-top:110px;
-  margin-bottom:0;
-  letter-spacing:.02em;
-  line-height:1;
-  z-index:3;
-  position:relative;
-}
-
-/* المحتوى */
+/* محتوى الكارت */
 .card-content{
   position:relative; z-index:3;
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
   flex:1;
-  padding:20px 30px 140px;
+  padding:80px 30px 100px;
   width:100%;
 }
 
+.bismillah{
+  font-family:'Aref Ruqaa', serif;
+  font-size:1.5rem;
+  color:var(--accent);
+  margin-bottom:14px;
+  letter-spacing:.02em;
+  line-height:1;
+}
+
 .invite-sub{
-  font-size:.85rem;
+  font-size:.82rem;
   color:var(--muted);
-  letter-spacing:.05em;
-  margin-bottom:16px;
+  margin-bottom:14px;
   font-weight:500;
 }
 
 .card-names{
   font-family:var(--font-head);
   font-size:clamp(1.8rem, 8vw, 2.5rem);
-  line-height:1.3;
+  line-height:1.2;
   color:var(--heading);
   font-weight:400;
   margin:0;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:2px;
+  gap:4px;
 }
 .card-names .amp{
   color:var(--accent);
-  font-size:.6em;
+  font-size:.55em;
   margin:2px 0;
   display:block;
 }
 
 .card-date-main{
-  font-size:1rem;
+  font-size:.95rem;
   color:var(--heading);
   letter-spacing:.05em;
-  margin-top:18px;
+  margin-top:16px;
   font-weight:600;
 }
 
+/* الأيقونات مع النص */
 .card-details-icons{
   display:flex;
   justify-content:center;
-  gap:20px;
+  gap:16px;
   margin-top:18px;
-  padding-top:16px;
+  padding-top:14px;
   border-top:1px solid var(--line);
   width:100%;
-  max-width:280px;
+  max-width:270px;
 }
 .detail-icon{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:6px;
+  gap:5px;
   flex:1;
 }
 .detail-icon svg{
-  width:22px; height:22px;
+  width:20px; height:20px;
   color:var(--accent);
 }
 .detail-icon span{
@@ -197,22 +176,14 @@ body{
   white-space:nowrap;
 }
 
-.invite-note{
-  font-size:.72rem;
-  color:var(--muted);
-  margin-top:16px;
-  font-style:italic;
-}
-
-/* صورة العروسين في الأسفل */
+/* صورة العروسين - صغيرة + متلاشية */
 .couple-photo{
   position:absolute;
   bottom:0;
   left:50%;
   transform:translateX(-50%);
   width:100%;
-  height:150px;
-  overflow:hidden;
+  height:120px;
   z-index:4;
   display:flex;
   align-items:flex-end;
@@ -220,12 +191,13 @@ body{
   pointer-events:none;
 }
 .couple-photo img{
-  width:65%;
-  height:100%;
+  width:140px;
+  height:120px;
   object-fit:cover;
-  object-position:top center;
-  -webkit-mask-image:linear-gradient(to bottom, black 65%, transparent 100%);
-  mask-image:linear-gradient(to bottom, black 65%, transparent 100%);
+  object-position:center top;
+  border-radius:50% 50% 0 0;
+  -webkit-mask-image:linear-gradient(to bottom, black 50%, transparent 100%);
+  mask-image:linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
 /* ===== Main Content ===== */
@@ -266,7 +238,7 @@ body{
   display:inline-flex; flex-direction:column; gap:4px;
   margin-top:28px; padding:16px 32px;
   border:1px solid var(--accent);
-  border-radius:4px;
+  border-radius:2px;
   background:var(--surface);
   box-shadow: 0 12px 30px rgba(107,79,42,.1);
 }
@@ -357,7 +329,7 @@ body{
   margin:0 auto;
   background:var(--surface);
   border:1px solid var(--accent2);
-  border-radius:4px;
+  border-radius:2px;
   box-shadow: 0 12px 30px rgba(107,79,42,.08);
 }
 .quote-card::before{
@@ -389,7 +361,7 @@ body{
   padding:26px 16px;
   text-align:center;
   border:1px solid var(--accent2);
-  border-radius:4px;
+  border-radius:2px;
 }
 .detail-card .ic{ font-size:1.6rem; margin-bottom:12px; display:block; }
 .detail-card b{
@@ -408,7 +380,7 @@ body{
   box-shadow: 0 12px 30px rgba(107,79,42,.08);
   width:82px; padding:16px 0; text-align:center;
   border:1px solid var(--accent);
-  border-radius:4px;
+  border-radius:2px;
 }
 .cd-box b{
   display:block; font-size:1.7rem;
@@ -438,7 +410,7 @@ body{
   background:var(--surface);
   box-shadow: 0 10px 25px rgba(107,79,42,.1);
   border:1px solid var(--accent2);
-  border-radius:4px;
+  border-radius:2px;
 }
 .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s; }
 .gallery-item:hover img{ transform:scale(1.08); }
@@ -459,13 +431,13 @@ body{
   padding:24px;
   display:flex; flex-direction:column; gap:12px;
   border:1px solid var(--accent2);
-  border-radius:4px;
+  border-radius:2px;
 }
 .wish-form input,
 .wish-form textarea{
   font-family:var(--font-body);
   border:1px solid var(--line);
-  border-radius:4px;
+  border-radius:2px;
   padding:12px 14px;
   background:transparent;
   color:var(--text);
@@ -486,7 +458,7 @@ body{
   font-family:var(--font-body);
   font-weight:600;
   padding:12px 28px;
-  border-radius:4px;
+  border-radius:2px;
   font-size:.9rem;
   transition:opacity .2s, transform .2s;
 }
@@ -501,7 +473,7 @@ body{
   padding:16px 18px;
   border:1px solid var(--accent2);
   border-right:3px solid var(--accent);
-  border-radius:4px;
+  border-radius:2px;
   position:relative;
 }
 .wish-item b{
@@ -533,7 +505,7 @@ body{
   padding:10px 18px;
   background:var(--surface);
   border:1px solid var(--accent);
-  border-radius:4px;
+  border-radius:2px;
   color:var(--heading);
   font-family:var(--font-body);
   font-size:.85rem; font-weight:600;
@@ -548,7 +520,7 @@ body{
 
 .map-container{
   margin-top:28px;
-  border-radius:4px;
+  border-radius:2px;
   overflow:hidden;
   border:1px solid var(--accent2);
   box-shadow:0 12px 30px rgba(107,79,42,.08);
@@ -594,7 +566,7 @@ footer b{
   padding:20px;
 }
 .lightbox.open{ display:flex; }
-.lightbox img{ max-width:90vw; max-height:85vh; border-radius:4px; }
+.lightbox img{ max-width:90vw; max-height:85vh; border-radius:2px; }
 .lightbox .close{
   position:absolute; top:20px; right:24px;
   color:#fff; font-size:2rem;
@@ -606,7 +578,7 @@ footer b{
   position:fixed; bottom:100px; left:50%;
   transform:translateX(-50%) translateY(20px);
   background:var(--heading); color:#fff;
-  padding:12px 24px; border-radius:4px;
+  padding:12px 24px; border-radius:2px;
   font-size:.85rem; z-index:99;
   opacity:0; pointer-events:none;
   transition:opacity .3s, transform .3s;
@@ -622,7 +594,6 @@ footer b{
   .cd-box{ width:68px; padding:12px 0; }
   .cd-box b{ font-size:1.3rem; }
   .back-link{ top:14px; right:14px; padding:8px 14px; font-size:.75rem; }
-  .bismillah{ font-size:1.5rem; margin-top:100px; }
-  .card-content{ padding:20px 24px 130px; }
-  .card-names{ font-size:1.6rem; }
+  .floral-corner{ width:100px; height:100px; }
+  .couple-photo img{ width:110px; height:100px; }
 }
