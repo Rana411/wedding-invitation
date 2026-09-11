@@ -15,6 +15,23 @@
   --font-body:'EB Garamond', serif;
 }
 
+/* ============================================================
+   PREVIEW MODE — عشان الـ iframe في المعرض
+   ============================================================ */
+body.preview-mode .back-link{ display:none !important; }
+body.preview-mode .music-btn{ display:none !important; }
+body.preview-mode .main-wrap{ display:none !important; }
+body.preview-mode .cover-screen{
+  position:relative !important;
+  inset:auto !important;
+  min-height:100vh;
+  padding:20px;
+}
+body.preview-mode .invite-card{
+  animation:none !important;
+  transform:none !important;
+}
+
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
 body{
