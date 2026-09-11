@@ -611,3 +611,25 @@ footer b{
   .cd-box b{ font-size:1.4rem; }
   .back-link{ top:14px; right:14px; padding:8px 14px; font-size:.75rem; }
 }
+
+/* ============================================================
+   Couple image in cover card
+   ============================================================ */
+.invite-card .couple-img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(255,255,255,.85);
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+  margin-bottom:12px;
+  position:relative;
+  z-index:2;
+}
+
+@media (max-width:480px){
+  .invite-card .couple-img{
+    width:56px;
+    height:56px;
+  }
+}
