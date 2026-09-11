@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarah & Ahmed · Baroque Cream</title>
+<title>Sarah & Ahmed · Baroque Rose</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/baroque.css">
@@ -16,42 +16,44 @@
 <div class="cover-screen" id="coverScreen">
   <div class="invite-card" onclick="openInvitation()">
 
-    <!-- إطار Baroque SVG -->
+    <!-- إطار Baroque Rose SVG -->
     <svg class="baroque-frame" viewBox="0 0 400 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- إطار خارجي -->
-      <rect x="20" y="20" width="360" height="520" fill="none" stroke="#B8935A" stroke-width="1.5" opacity="0.7"/>
-      <!-- إطار داخلي -->
-      <rect x="28" y="28" width="344" height="504" fill="none" stroke="#B8935A" stroke-width="0.8" opacity="0.5"/>
+      <!-- إطار خارجي ذهبي -->
+      <rect x="20" y="20" width="360" height="520" fill="none" stroke="#C9A227" stroke-width="1.5" opacity="0.8"/>
+      <!-- إطار داخلي وردي -->
+      <rect x="28" y="28" width="344" height="504" fill="none" stroke="#D68A9B" stroke-width="0.8" opacity="0.6"/>
 
-      <!-- زخارف الزوايا - الشكل الباروكي -->
-      <g stroke="#B8935A" stroke-width="1.2" fill="none" opacity="0.85">
-        <!-- زاوية علوية يسار -->
-        <path d="M 40 40 Q 55 40 65 55 Q 75 70 60 80 Q 45 75 40 60 Z"/>
-        <path d="M 40 40 L 60 40 M 40 40 L 40 60"/>
-        <circle cx="48" cy="48" r="3" fill="#B8935A"/>
+      <!-- زخارف الزوايا - وردية وذهبية -->
+      <g opacity="0.9">
+        <!-- الزاوية العلوية اليسرى -->
+        <path d="M 40 40 Q 55 40 65 55 Q 75 70 60 80 Q 45 75 40 60 Z" fill="#F2DBDD" stroke="#D68A9B" stroke-width="1"/>
+        <circle cx="48" cy="48" r="3" fill="#C9A227"/>
+        <ellipse cx="30" cy="30" rx="10" ry="5" transform="rotate(-40 30 30)" fill="#D68A9B" opacity="0.7"/>
+        <ellipse cx="55" cy="30" rx="8" ry="4" transform="rotate(20 55 30)" fill="#F2DBDD" opacity="0.8"/>
 
-        <!-- زاوية علوية يمين -->
-        <path d="M 360 40 Q 345 40 335 55 Q 325 70 340 80 Q 355 75 360 60 Z"/>
-        <path d="M 360 40 L 340 40 M 360 40 L 360 60"/>
-        <circle cx="352" cy="48" r="3" fill="#B8935A"/>
+        <!-- الزاوية العلوية اليمنى -->
+        <path d="M 360 40 Q 345 40 335 55 Q 325 70 340 80 Q 355 75 360 60 Z" fill="#F2DBDD" stroke="#D68A9B" stroke-width="1"/>
+        <circle cx="352" cy="48" r="3" fill="#C9A227"/>
+        <ellipse cx="370" cy="30" rx="10" ry="5" transform="rotate(40 370 30)" fill="#D68A9B" opacity="0.7"/>
+        <ellipse cx="345" cy="30" rx="8" ry="4" transform="rotate(-20 345 30)" fill="#F2DBDD" opacity="0.8"/>
 
-        <!-- زاوية سفلية يسار -->
-        <path d="M 40 520 Q 55 520 65 505 Q 75 490 60 480 Q 45 485 40 500 Z"/>
-        <path d="M 40 520 L 60 520 M 40 520 L 40 500"/>
-        <circle cx="48" cy="512" r="3" fill="#B8935A"/>
+        <!-- الزاوية السفلية اليسرى -->
+        <path d="M 40 520 Q 55 520 65 505 Q 75 490 60 480 Q 45 485 40 500 Z" fill="#F2DBDD" stroke="#D68A9B" stroke-width="1"/>
+        <circle cx="48" cy="512" r="3" fill="#C9A227"/>
+        <ellipse cx="30" cy="530" rx="10" ry="5" transform="rotate(-40 30 530)" fill="#D68A9B" opacity="0.7"/>
 
-        <!-- زاوية سفلية يمين -->
-        <path d="M 360 520 Q 345 520 335 505 Q 325 490 340 480 Q 355 485 360 500 Z"/>
-        <path d="M 360 520 L 340 520 M 360 520 L 360 500"/>
-        <circle cx="352" cy="512" r="3" fill="#B8935A"/>
+        <!-- الزاوية السفلية اليمنى -->
+        <path d="M 360 520 Q 345 520 335 505 Q 325 490 340 480 Q 355 485 360 500 Z" fill="#F2DBDD" stroke="#D68A9B" stroke-width="1"/>
+        <circle cx="352" cy="512" r="3" fill="#C9A227"/>
+        <ellipse cx="370" cy="530" rx="10" ry="5" transform="rotate(40 370 530)" fill="#D68A9B" opacity="0.7"/>
       </g>
 
       <!-- زخرفة أعلى وأسفل -->
-      <g stroke="#B8935A" stroke-width="1" fill="none" opacity="0.5">
+      <g stroke="#C9A227" stroke-width="1" fill="none" opacity="0.6">
         <path d="M 130 40 Q 200 30 270 40"/>
         <path d="M 130 520 Q 200 530 270 520"/>
       </g>
-      <g fill="#B8935A" opacity="0.7">
+      <g fill="#D68A9B" opacity="0.8">
         <ellipse cx="200" cy="35" rx="6" ry="2"/>
         <ellipse cx="200" cy="525" rx="6" ry="2"/>
       </g>
@@ -100,11 +102,6 @@
         <span>Tap to open</span>
       </div>
 
-    </div>
-
-    <!-- صورة العروسين -->
-    <div class="couple-photo">
-      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&q=80&auto=format&fit=crop" alt="Couple">
     </div>
 
   </div>
@@ -198,11 +195,11 @@
 
   <h2 class="section-title">Suggested Palette</h2>
   <div class="swatches">
-    <div class="swatch" style="background:#6B4F2A"></div>
-    <div class="swatch" style="background:#B8935A"></div>
-    <div class="swatch" style="background:#D4B98A"></div>
+    <div class="swatch" style="background:#9B3350"></div>
+    <div class="swatch" style="background:#C9A227"></div>
+    <div class="swatch" style="background:#F2DBDD"></div>
   </div>
-  <p class="dress-text">We'd love to see you in warm cream, gold, and earthy tones for this elegant celebration.</p>
+  <p class="dress-text">We'd love to see you in warm cream, dusty rose, and gold tones.</p>
 
   <h2 class="section-title">Share the Joy</h2>
   <div class="action-bar">
