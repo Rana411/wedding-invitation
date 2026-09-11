@@ -3,695 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarah & Ahmed · Botanical Invitation</title>
+<title>Sarah & Ahmed · White Elegance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#F7F4EC;
-    --surface:#FFFFFF;
-    --text:#2A2820;
-    --muted:#7A7263;
-    --heading:#3D5A3A;
-    --accent:#C29A4A;
-    --accent2:#8BA06E;
-    --line:#E3DCC8;
-    --font-head:'Playfair Display', serif;
-    --font-script:'Cormorant Garamond', serif;
-    --font-body:'EB Garamond', serif;
-    --shadow-card: 0 20px 60px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
-    --shadow-elevated: 0 30px 80px rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.06);
-  }
-
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  html{font-size:16px; transition: font-size .3s ease;}
-  body{
-    background-color:var(--bg);
-    background-image: radial-gradient(circle at 1px 1px, rgba(61,90,58,.06) 1px, transparent 0);
-    background-size: 22px 22px;
-    color:var(--text);
-    font-family:var(--font-body);
-    font-size:1rem;
-    min-height:100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ============================================================
-     COVER SCREEN
-     ============================================================ */
-  .cover-screen{
-    position:fixed; inset:0; z-index:500;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,.10), transparent 55%),
-      radial-gradient(circle at 80% 70%, rgba(255,255,255,.08), transparent 55%),
-      var(--bg);
-    display:flex; align-items:center; justify-content:center; padding:24px;
-  }
-  .cover-screen.hidden{
-    opacity:0; pointer-events:none;
-    transition: opacity .8s ease, transform .8s ease;
-    transform: scale(1.05);
-  }
-
-  .invite-card{
-    position:relative;
-    width:min(420px, 92vw);
-    aspect-ratio: 5 / 7;
-    border-radius: 40px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    box-shadow:
-      0 40px 100px rgba(0,0,0,.18),
-      0 0 0 1px rgba(255,255,255,.06) inset;
-    cursor:pointer;
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    padding: 40px 34px;
-    text-align:center;
-    overflow:hidden;
-    transition: transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .6s;
-    animation: cardFloat 5s ease-in-out infinite;
-  }
-  @keyframes cardFloat{
-    0%,100%{ transform: translateY(0) rotate(-.5deg); }
-    50%   { transform: translateY(-10px) rotate(.5deg); }
-  }
-  .invite-card:hover{
-    transform: translateY(-12px) rotate(0deg) scale(1.02);
-    box-shadow: 0 60px 120px rgba(0,0,0,.22);
-  }
-  .invite-card::before{
-    content:'';
-    position:absolute; inset:14px;
-    border: 1px solid var(--accent);
-    border-radius: 30px;
-    pointer-events:none;
-    opacity:.55;
-  }
-  .invite-card::after{
-    content:'';
-    position:absolute; inset:18px;
-    border: 1px solid var(--line);
-    border-radius: 26px;
-    pointer-events:none;
-    opacity:.5;
-  }
-
-  .floral-frame{
-    position: absolute; inset:0;
-    width:100%; height:100%;
-    pointer-events:none;
-    z-index:1;
-  }
-  .shine{
-    position:absolute; inset:0;
-    background: linear-gradient(115deg,
-      transparent 30%,
-      rgba(255,255,255,.35) 45%,
-      rgba(255,255,255,.55) 50%,
-      rgba(255,255,255,.35) 55%,
-      transparent 70%);
-    transform: translateX(-120%);
-    pointer-events:none;
-    transition: transform 1s ease;
-    z-index: 5;
-  }
-  .invite-card:hover .shine{ transform: translateX(120%); }
-
-  .card-ornament{
-    width:100%; display:flex; align-items:center; justify-content:center;
-    gap:12px; margin-bottom: 24px;
-    position:relative; z-index:2;
-  }
-  .card-ornament span{
-    height:1px; flex:1;
-    background: linear-gradient(to right, transparent, var(--line), transparent);
-  }
-  .card-ornament .diamond{
-    width:10px; height:10px;
-    background: var(--accent);
-    transform: rotate(45deg);
-    flex:none;
-    box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line);
-  }
-  .card-kicker{
-    font-size: 0.625rem; letter-spacing:.35em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 20px;
-    position:relative; z-index:2;
-    font-weight: 600;
-  }
-  .card-names{
-    font-family: var(--font-head);
-    font-size: clamp(1.875rem, 8vw, 2.875rem);
-    line-height:1.1;
-    color: var(--heading);
-    font-weight: 600;
-    margin: 0;
-    position:relative; z-index:2;
-  }
-  .card-names .amp{
-    font-family: var(--font-script);
-    font-style: italic; font-weight:400;
-    color: var(--accent);
-    display:block; font-size:.75em; margin: 8px 0;
-  }
-  .card-date{
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing:.28em;
-    text-transform: uppercase;
-    margin-top: 24px;
-    position:relative; z-index:2;
-    font-weight: 500;
-  }
-  .card-date .dot-sep{ color: var(--accent); margin: 0 6px; }
-  .card-tap{
-    margin-top: 44px;
-    display:flex; flex-direction:column; align-items:center; gap:10px;
-    color: var(--accent);
-    font-size: 0.6875rem;
-    letter-spacing: .28em;
-    text-transform: uppercase;
-    font-weight: 700;
-    animation: tapPulse 2.4s ease-in-out infinite;
-    position:relative; z-index:2;
-  }
-  @keyframes tapPulse{
-    0%,100%{ opacity:.6; transform: translateY(0); }
-    50%    { opacity:1; transform: translateY(4px); }
-  }
-  .card-tap .arrow{
-    width: 22px; height: 22px;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    transform: rotate(45deg);
-    animation: arrowBounce 1.8s ease-in-out infinite;
-  }
-  @keyframes arrowBounce{
-    0%,100%{ transform: rotate(45deg) translate(0,0); }
-    50%    { transform: rotate(45deg) translate(4px,4px); }
-  }
-
-  /* زر الرجوع للمعرض */
-  .back-link{
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: rgba(255,255,255,.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    color: var(--heading);
-    text-decoration: none;
-    font-size: .82rem;
-    font-weight: 600;
-    letter-spacing: .05em;
-    box-shadow: 0 8px 20px rgba(0,0,0,.08);
-    transition: transform .2s, box-shadow .2s;
-  }
-  .back-link:hover{
-    transform: translateX(-3px);
-    box-shadow: 0 12px 28px rgba(0,0,0,.15);
-  }
-  .back-link svg{ width: 14px; height: 14px; }
-
-  /* ============================================================
-     MAIN CONTENT
-     ============================================================ */
-  .main-wrap{
-    max-width:720px; margin:0 auto; padding:80px 22px 40px;
-    opacity:0;
-    transform: translateY(30px);
-    transition: opacity .9s ease .3s, transform .9s ease .3s;
-  }
-  .main-wrap.visible{ opacity:1; transform: translateY(0); }
-
-  @keyframes riseIn{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
-  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
-
-  .hero{text-align:center; padding: 20px 0 0;}
-  .kicker{
-    font-size:.875rem; color:var(--muted);
-    margin-bottom:16px;
-    position: relative;
-  }
-  .kicker::before, .kicker::after{
-    content:'';
-    display:inline-block;
-    width: 24px; height: 1px;
-    background: var(--line);
-    vertical-align: middle;
-    margin: 0 12px;
-  }
-  .names{
-    font-family:var(--font-head);
-    font-size:clamp(2.4rem,9vw,4rem);
-    line-height:1.15; color:var(--heading); margin:0; font-weight:600;
-  }
-  .amp{
-    font-family:var(--font-script); font-style:italic;
-    font-size:.55em; color:var(--accent); display:inline-block;
-    margin:0 14px; font-weight:400;
-  }
-  .lead{
-    margin-top:20px; font-size:1rem; color:var(--muted);
-    line-height:1.9; max-width:440px; margin-inline:auto;
-  }
-  .date-badge{
-    display:inline-flex; flex-direction:column; gap:4px;
-    margin-top:32px; padding:18px 36px;
-    border: 1px solid var(--line);
-    border-radius:10px; background:var(--surface);
-    box-shadow: var(--shadow-card);
-    position: relative;
-  }
-  .date-badge::before{
-    content:'';
-    position: absolute; inset: 5px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    opacity: .5;
-    pointer-events: none;
-  }
-  .date-badge b{
-    font-size:1.2rem; color:var(--heading);
-    font-family:var(--font-head); font-weight:600;
-  }
-  .date-badge span{font-size:.8rem;color:var(--muted); letter-spacing:.08em;}
-
-  .divider{
-    display:flex;align-items:center;justify-content:center;gap:14px;
-    margin:42px auto; max-width: 280px;
-  }
-  .divider span{
-    height:1px; flex:1;
-    background: linear-gradient(to right, transparent, var(--line), transparent);
-  }
-  .divider .diamond{
-    width:8px; height:8px;
-    background: var(--accent);
-    transform: rotate(45deg);
-    flex:none;
-    box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--line);
-  }
-
-  .section-title{
-    text-align:center; font-family:var(--font-head);
-    font-size:1.5rem; font-weight:600;
-    color:var(--heading); margin:0 0 30px;
-    padding: 0 20px;
-  }
-  .section-title::before{
-    content:'❦';
-    display: block;
-    color: var(--accent);
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    opacity: .7;
-    line-height: 1;
-  }
-  .section-title::after{
-    content:'';
-    display: block;
-    width: 50px; height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent), transparent);
-    margin: 12px auto 0;
-  }
-
-  /* Photos */
-  .couple-frame{ display:flex; justify-content:center; align-items:flex-end; gap:0; margin:46px 0 8px; }
-  .photo-slot{
-    width:170px;height:170px; border-radius:50%;
-    background:var(--surface);
-    border:3px double var(--accent);
-    box-shadow: var(--shadow-card);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-    cursor:pointer; position:relative; z-index:1; flex-shrink:0;
-    transition: transform .3s, box-shadow .3s;
-  }
-  .photo-slot:hover{
-    transform: scale(1.04) translateY(-4px);
-    box-shadow: var(--shadow-elevated);
-  }
-  .photo-slot img{width:100%;height:100%;object-fit:cover;display:block;}
-  .photo-slot .hint{
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(0,0,0,.5); color:#fff;
-    font-size:.72rem; opacity:0;
-    transition:opacity .3s; text-align:center; padding:8px;
-    font-weight:600; letter-spacing:.05em;
-  }
-  .photo-slot:hover .hint{opacity:1;}
-  .photo-slot.left{margin-inline-end:-26px;}
-  .photo-slot.right{margin-inline-start:-26px;}
-  .heart-mid{
-    width:44px;height:44px;border-radius:50%;
-    background: linear-gradient(135deg, var(--heading), var(--accent));
-    color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-size:1rem; z-index:2; flex-shrink:0;
-    box-shadow: 0 8px 24px rgba(0,0,0,.2), 0 0 0 4px var(--bg);
-    position: relative;
-  }
-  .heart-mid::before{
-    content:'';
-    position:absolute; inset:-6px;
-    border-radius:50%;
-    border: 1px solid var(--line);
-    animation: heartPulse 2.5s ease-in-out infinite;
-  }
-  @keyframes heartPulse{
-    0%,100%{ transform: scale(1); opacity: .6; }
-    50%    { transform: scale(1.15); opacity: 0; }
-  }
-  .photo-note{ text-align:center; font-size:.75rem; color:var(--muted); margin-top:14px; }
-
-  /* Quote */
-  .quote-card{
-    padding: 32px 28px;
-    text-align:center;
-    position: relative;
-    max-width: 560px;
-    margin: 0 auto;
-  }
-  .quote-card::before,
-  .quote-card::after{
-    content:'"';
-    position: absolute;
-    font-family: var(--font-head);
-    font-size: 4rem;
-    color: var(--accent);
-    opacity: .25;
-    line-height: 1;
-  }
-  .quote-card::before{ top: 8px; left: 20px; }
-  .quote-card::after{ bottom: 8px; right: 20px; }
-  .quote-card p{
-    font-family:var(--font-script); font-style:italic;
-    font-size:1.35rem; line-height:1.8;
-    color:var(--text); margin:0;
-    position: relative; z-index: 1;
-  }
-  .quote-card small{
-    display:block;margin-top:18px;color:var(--muted);
-    font-size:.75rem; letter-spacing:.1em;
-    text-transform: uppercase;
-  }
-
-  /* Details */
-  .details-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
-  .detail-card{
-    background:var(--surface); border-radius:10px;
-    box-shadow: var(--shadow-card);
-    padding:28px 18px; text-align:center;
-    border:1px solid var(--line);
-    position: relative;
-    overflow: hidden;
-  }
-  .detail-card::before{
-    content:'';
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 2px;
-    background: var(--accent);
-  }
-  .detail-card .ic{
-    font-size:1.6rem;margin-bottom:14px;display:block;
-  }
-  .detail-card b{
-    display:block;font-size:1rem;margin-bottom:6px;
-    font-family:var(--font-head); color: var(--heading);
-  }
-  .detail-card span{font-size:.85rem;color:var(--muted); line-height: 1.6;}
-
-  /* Countdown */
-  .countdown{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
-  .cd-box{
-    background:var(--surface); border-radius:10px;
-    box-shadow: var(--shadow-card);
-    width:84px; padding:18px 0; text-align:center;
-    border:1px solid var(--line);
-  }
-  .cd-box b{
-    display:block;font-size:1.7rem;
-    color:var(--heading);font-family:var(--font-head);
-    font-weight: 600;
-  }
-  .cd-box span{
-    font-size:.66rem;color:var(--muted);
-    text-transform:uppercase; letter-spacing:.1em;
-    font-weight: 500;
-  }
-
-  /* Palette */
-  .swatches{display:flex;justify-content:center;gap:16px;margin:22px 0 16px;}
-  .swatch{
-    width:48px;height:48px;border-radius:50%;
-    box-shadow: var(--shadow-card);
-    border: 2px solid var(--surface);
-    outline: 1px solid var(--line);
-  }
-  .dress-text{
-    text-align:center;font-size:.9rem;color:var(--muted);
-    max-width:440px;margin:0 auto;line-height:1.9;
-  }
-
-  /* Gallery */
-  .gallery{
-    display:grid; grid-template-columns: repeat(3, 1fr);
-    gap:12px; margin-top:12px;
-  }
-  .gallery-item{
-    position:relative; aspect-ratio: 1 / 1;
-    border-radius: 10px; overflow:hidden;
-    cursor:pointer; background: var(--surface);
-    box-shadow: var(--shadow-card);
-    border: 1px solid var(--line);
-  }
-  .gallery-item img{
-    width:100%; height:100%; object-fit:cover; display:block;
-  }
-  .gallery-item .gallery-hint{
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,.2));
-    color:#fff; font-size:.72rem; font-weight:600;
-    letter-spacing:.06em;
-    opacity:0; transition:opacity .3s; text-align:center; padding:8px;
-    text-transform: uppercase;
-  }
-  .gallery-item:hover .gallery-hint{ opacity:1; }
-  .gallery-item.wide{ grid-column: span 2; aspect-ratio: 2 / 1; }
-  .gallery-item.tall{ grid-row: span 2; aspect-ratio: 1 / 2; }
-
-  .gallery-note{ text-align:center; font-size:.75rem; color:var(--muted); margin-top:16px; }
-
-  /* Wishes */
-  .wish-form{
-    background:var(--surface); border-radius:10px;
-    box-shadow: var(--shadow-card);
-    padding:28px; display:flex; flex-direction:column; gap:14px;
-    border:1px solid var(--line);
-    position: relative;
-  }
-  .wish-form::before{
-    content:'';
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 60px; height: 2px;
-    background: var(--accent);
-  }
-  .wish-form input, .wish-form textarea{
-    font-family:var(--font-body);
-    border:1px solid var(--line); border-radius:8px;
-    padding:13px 16px; background:transparent; color:var(--text);
-    font-size:.9rem; resize:vertical;
-  }
-  .wish-form input:focus, .wish-form textarea:focus{
-    outline: none; border-color: var(--accent);
-  }
-  .wish-form textarea{min-height:90px;}
-  .wish-form button{
-    align-self:flex-start; border:none; cursor:pointer;
-    background: var(--heading);
-    color:#fff; font-family:var(--font-body); font-weight:600;
-    padding:13px 32px; border-radius:8px; font-size:.875rem;
-    letter-spacing:.03em;
-    box-shadow: 0 8px 20px rgba(0,0,0,.15);
-    transition: opacity .25s, transform .25s;
-  }
-  .wish-form button:hover{ opacity:.92; transform: translateY(-2px); }
-  .wish-form button:disabled{ opacity:.5; cursor:default; transform:none; }
-  .form-msg{font-size:.8rem;color:var(--accent);min-height:16px;}
-
-  .wishes-list{display:flex;flex-direction:column;gap:14px;margin-top:24px;}
-  .wish-item{
-    background:var(--surface); border-radius:10px;
-    box-shadow: var(--shadow-card);
-    padding:18px 20px; border:1px solid var(--line);
-    border-left: 3px solid var(--accent);
-    position:relative;
-  }
-  .wish-item b{
-    font-size:.9rem;color:var(--heading);
-    font-family:var(--font-head); font-weight: 600;
-  }
-  .wish-item p{
-    margin:8px 0 0;font-size:.85rem;line-height:1.85;
-    color:var(--text); word-wrap:break-word; white-space:pre-wrap;
-  }
-  .wish-item .wish-time{
-    font-size:.7rem; color:var(--muted);
-    margin-top:10px; display:block;
-  }
-  .wish-item .wish-del{
-    position:absolute; top:12px; right:14px;
-    background:none; border:none;
-    color:var(--muted); cursor:pointer; font-size:1rem;
-    opacity:.35; line-height:1; padding:4px;
-  }
-  .wish-item .wish-del:hover{ opacity:1; color:#c0392b; }
-  .wishes-empty{text-align:center;font-size:.85rem;color:var(--muted);padding:16px 0;}
-  .wish-counter{
-    font-size:.72rem; color:var(--muted); text-align:center;
-    margin-top:16px; letter-spacing:.05em;
-  }
-
-  footer{
-    text-align:center;margin-top:56px;font-size:.8rem;color:var(--muted);
-    padding-bottom:100px;
-  }
-  footer::before{
-    content:'❦';
-    display: block;
-    color: var(--accent);
-    font-size: 1rem;
-    margin: 0 auto 20px;
-    opacity: .7;
-  }
-  footer b{
-    font-family:var(--font-head); color:var(--heading);
-    font-size:1rem; display:block; margin-bottom:6px;
-  }
-
-  /* Lightbox */
-  .lightbox{
-    position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:600;
-    display:none; align-items:center; justify-content:center; padding:20px;
-  }
-  .lightbox.open{ display:flex; }
-  .lightbox img{
-    max-width:90vw; max-height:85vh;
-    border-radius:8px;
-  }
-  .lightbox .close{
-    position:absolute; top:24px; right:28px; color:#fff; font-size:2rem;
-    cursor:pointer; background:none; border:none; line-height:1;
-    opacity:.7;
-  }
-  .lightbox .close:hover{ opacity:1; }
-
-  /* Toast */
-  .toast{
-    position:fixed; bottom:100px; left:50%;
-    transform:translateX(-50%) translateY(20px);
-    background: var(--heading);
-    color:#fff; padding:14px 28px; border-radius:999px;
-    font-size:.85rem; z-index:99;
-    opacity:0; pointer-events:none;
-    transition: opacity .3s, transform .3s;
-    max-width:90vw; text-align:center;
-    font-weight: 500;
-  }
-  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
-  .visually-hidden{ position:absolute; width:1px;height:1px; overflow:hidden; clip:rect(0,0,0,0); }
-
-  @media (max-width:480px){
-    .photo-slot{width:125px;height:125px;}
-    .cd-box{width:68px;padding:14px 0;}
-    .details-grid{grid-template-columns:1fr;}
-    .gallery{ gap:8px; }
-    .invite-card{ border-radius: 32px; }
-    .invite-card::before{ border-radius: 24px; }
-    .invite-card::after{ border-radius: 20px; }
-    .back-link{ top: 14px; left: 14px; padding: 8px 14px; font-size: .75rem; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/white.css">
 </head>
 <body>
 
-<!-- زر الرجوع -->
-<a class="back-link" href="../index.html">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="15 18 9 12 15 6"/>
-  </svg>
-  كل التصاميم
-</a>
+<a class="back-link" href="../index.html">← All Designs</a>
 
-<!-- ============================================================
-     COVER SCREEN — الكارت
-     ============================================================ -->
+<!-- COVER -->
 <div class="cover-screen" id="coverScreen">
-  <div class="invite-card" id="inviteCard" onclick="openInvitation()">
+  <div class="invite-card" onclick="openInvitation()">
 
-    <!-- إطار الزهور SVG -->
-    <svg class="floral-frame" viewBox="0 0 400 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="softShadow"><feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/><feOffset dx="0" dy="2" result="o"/><feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      </defs>
-      <path d="M 40 40 Q 200 20 360 40" stroke="#C29A4A" stroke-width="1" fill="none" opacity="0.4"/>
-      <path d="M 40 40 Q 20 280 40 520" stroke="#C29A4A" stroke-width="1" fill="none" opacity="0.4"/>
-      <path d="M 360 40 Q 380 280 360 520" stroke="#C29A4A" stroke-width="1" fill="none" opacity="0.4"/>
-      <path d="M 40 520 Q 200 540 360 520" stroke="#C29A4A" stroke-width="1" fill="none" opacity="0.4"/>
-      <g filter="url(#softShadow)" opacity="0.85">
-        <ellipse cx="50" cy="60" rx="25" ry="10" transform="rotate(-30 50 60)" fill="#8BA06E"/>
-        <ellipse cx="70" cy="50" rx="22" ry="8" transform="rotate(20 70 50)" fill="#7A9060"/>
-        <ellipse cx="35" cy="90" rx="20" ry="8" transform="rotate(-50 35 90)" fill="#8BA06E"/>
-      </g>
-      <g filter="url(#softShadow)">
-        <circle cx="45" cy="55" r="18" fill="#FFF"/><circle cx="45" cy="55" r="12" fill="#F5EDDC"/><circle cx="45" cy="55" r="6" fill="#C29A4A"/>
-      </g>
-      <g filter="url(#softShadow)">
-        <circle cx="355" cy="70" r="14" fill="#F5EDDC"/><circle cx="355" cy="70" r="8" fill="#E8DAB8"/><circle cx="355" cy="70" r="3" fill="#C29A4A"/>
-      </g>
-      <g filter="url(#softShadow)">
-        <circle cx="345" cy="470" r="22" fill="#FFF"/><circle cx="345" cy="470" r="15" fill="#F5EDDC"/><circle cx="345" cy="470" r="8" fill="#E8DAB8"/><circle cx="345" cy="470" r="3" fill="#C29A4A"/>
-      </g>
-      <g filter="url(#softShadow)" opacity="0.85">
-        <ellipse cx="320" cy="500" rx="25" ry="9" transform="rotate(40 320 500)" fill="#8BA06E"/>
-        <ellipse cx="345" cy="510" rx="20" ry="8" transform="rotate(-25 345 510)" fill="#7A9060"/>
-      </g>
-      <g filter="url(#softShadow)" opacity="0.85">
-        <ellipse cx="55" cy="500" rx="24" ry="9" transform="rotate(-40 55 500)" fill="#8BA06E"/>
-        <ellipse cx="80" cy="510" rx="20" ry="7" transform="rotate(20 80 510)" fill="#7A9060"/>
-      </g>
-      <g filter="url(#softShadow)">
-        <circle cx="60" cy="465" r="16" fill="#F5EDDC"/><circle cx="60" cy="465" r="10" fill="#E8DAB8"/><circle cx="60" cy="465" r="4" fill="#C29A4A"/>
-      </g>
-    </svg>
-
-    <div class="shine"></div>
-
-    <div class="card-ornament">
-      <span></span><div class="diamond"></div><span></span>
-    </div>
-    <div class="card-kicker">You're Invited</div>
+    <div class="card-ornament-top"></div>
+    <div class="card-kicker">Together with our families</div>
     <h2 class="card-names">
       Sarah
-      <span class="amp">&amp;</span>
+      <span class="amp">&</span>
       Ahmed
     </h2>
-    <div class="card-date">
-      10<span class="dot-sep">·</span>12<span class="dot-sep">·</span>2026
-    </div>
+    <div class="card-date">10 · 12 · 2026</div>
     <div class="card-tap">
       <span>Tap to open</span>
       <div class="arrow"></div>
@@ -699,35 +31,32 @@
   </div>
 </div>
 
-<!-- ============================================================
-     MAIN CONTENT
-     ============================================================ -->
+<!-- MAIN -->
 <div class="main-wrap" id="mainWrap">
-
   <div class="hero">
     <div class="kicker">Together with our families</div>
-    <h1 class="names">Sarah<span class="amp">&amp;</span>Ahmed</h1>
+    <h1 class="names">Sarah<span class="amp">&</span>Ahmed</h1>
     <p class="lead">Joyfully invite you to celebrate our wedding day. Your presence would mean the world to us.</p>
     <div class="date-badge">
-      <b id="dateBig">Friday, 10 December 2026</b>
+      <b>Friday, 10 December 2026</b>
       <span>7:00 PM · Cairo, Egypt</span>
     </div>
   </div>
 
-  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
+  <div class="divider"><span></span><span class="orn">❦</span><span></span></div>
 
   <div class="couple-frame">
-    <div class="photo-slot left" onclick="triggerUpload('bride')" title="Change bride photo">
+    <div class="photo-slot left" onclick="triggerUpload('bride')">
       <img data-role="bride-img" src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=600&q=80&auto=format&fit=crop" alt="Bride">
       <div class="hint">Change</div>
     </div>
     <div class="heart-mid">♥</div>
-    <div class="photo-slot right" onclick="triggerUpload('groom')" title="Change groom photo">
+    <div class="photo-slot right" onclick="triggerUpload('groom')">
       <img data-role="groom-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop" alt="Groom">
       <div class="hint">Change</div>
     </div>
   </div>
-  <p class="photo-note">Tap either photo to upload your own — saved on this device.</p>
+  <p class="photo-note">Tap either photo to upload your own.</p>
   <input type="file" id="fileInput" accept="image/*" class="visually-hidden">
 
   <div class="quote-card">
@@ -735,23 +64,23 @@
     <small>— The Qur'an, 30:21</small>
   </div>
 
-  <div class="divider"><span></span><div class="diamond"></div><span></span></div>
+  <div class="divider"><span></span><span class="orn">❦</span><span></span></div>
 
   <h2 class="section-title">The Details</h2>
   <div class="details-grid">
     <div class="detail-card">
       <span class="ic">💍</span>
       <b>The Date</b>
-      <span>Friday, 10 December 2026</span>
+      <span>Friday, 10 December 2026<br>7:00 PM</span>
     </div>
     <div class="detail-card">
       <span class="ic">📍</span>
       <b>The Venue</b>
-      <span>Kempinski Nile Hotel, Cairo</span>
+      <span>Kempinski Nile Hotel<br>Cairo, Egypt</span>
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top:52px;">Counting Down</h2>
+  <h2 class="section-title">Counting Down</h2>
   <div class="countdown">
     <div class="cd-box"><b id="cdDays">--</b><span>Days</span></div>
     <div class="cd-box"><b id="cdHours">--</b><span>Hours</span></div>
@@ -759,7 +88,7 @@
     <div class="cd-box"><b id="cdSec">--</b><span>Secs</span></div>
   </div>
 
-  <h2 class="section-title" style="margin-top:56px;">Our Wedding Moments</h2>
+  <h2 class="section-title">Our Moments</h2>
   <div class="gallery">
     <div class="gallery-item wide" onclick="triggerUpload('gallery-0')">
       <img data-role="gallery-0-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80&auto=format&fit=crop" alt="">
@@ -786,36 +115,50 @@
       <div class="gallery-hint">Change</div>
     </div>
   </div>
-  <p class="gallery-note">Tap any photo to replace it 🤍</p>
 
-  <h2 class="section-title" style="margin-top:56px;">Suggested Palette</h2>
+  <h2 class="section-title">Suggested Palette</h2>
   <div class="swatches">
-    <div class="swatch" style="background:#3D5A3A"></div>
-    <div class="swatch" style="background:#C29A4A"></div>
-    <div class="swatch" style="background:#8BA06E"></div>
+    <div class="swatch" style="background:#3A3226"></div>
+    <div class="swatch" style="background:#B8B0A0"></div>
+    <div class="swatch" style="background:#E0D8C8"></div>
   </div>
-  <p class="dress-text">We'd love to see you in warm, earthy tones that suit the botanical, garden-party mood of the evening.</p>
+  <p class="dress-text">We'd love to see you in soft neutrals — ivory, cream, and warm beige.</p>
 
-  <div class="divider" style="margin-top:56px;"><span></span><div class="diamond"></div><span></span></div>
+  <h2 class="section-title">Share the Joy</h2>
+  <div class="action-bar">
+    <button class="action-btn" onclick="shareWhatsApp()">WhatsApp</button>
+    <button class="action-btn" onclick="copyLink()">Copy Link</button>
+    <button class="action-btn" onclick="addToCalendar()">Add to Calendar</button>
+    <button class="action-btn" onclick="openMap()">Location</button>
+  </div>
 
-  <h2 class="section-title">Leave Us a Wish</h2>
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.3724238137!2d31.2337!3d30.0444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAyJzM5LjgiTiAzMcKwMTQnMDEuMyJF!5e0!3m2!1sen!2seg!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <div class="divider" style="margin-top:50px;"><span></span><span class="orn">❦</span><span></span></div>
+
+  <h2 class="section-title">Leave a Wish</h2>
   <div class="wish-form">
     <input type="text" id="wishName" placeholder="Your name" maxlength="40">
     <textarea id="wishMsg" placeholder="Write your congratulations..." maxlength="240"></textarea>
     <button id="wishBtn" onclick="submitWish()">Send Wishes</button>
     <div class="form-msg" id="wishFormMsg"></div>
   </div>
-  <div class="wishes-list" id="wishesList">
-    <div class="wishes-empty">Loading wishes...</div>
-  </div>
+  <div class="wishes-list" id="wishesList"></div>
   <div class="wish-counter" id="wishCounter"></div>
 
   <footer>
-    <b>Sarah &amp; Ahmed</b>
+    <b>Sarah & Ahmed</b>
     With love, we can't wait to celebrate with you 🤍
   </footer>
-
 </div>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Music">🔇</button>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="../music/alex-morgan-wedding-garden-ceremony-glow-578500.mp3" type="audio/mpeg">
+</audio>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="close" onclick="closeLightbox()">×</button>
@@ -825,220 +168,17 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const WEDDING_DATE = new Date('2026-12-10T19:00:00');
-
-  const memoryStore = {};
-  const store = {
-    get(key, fallback = null){
-      try{ const v = localStorage.getItem(key); if(v !== null) return v; }catch(e){}
-      try{ const v = sessionStorage.getItem(key); if(v !== null) return v; }catch(e){}
-      if(Object.prototype.hasOwnProperty.call(memoryStore, key)) return memoryStore[key];
-      return fallback;
-    },
-    set(key, value){
-      try{ localStorage.setItem(key, value); }catch(e){}
-      try{ sessionStorage.setItem(key, value); }catch(e){}
-      memoryStore[key] = value;
-      return true;
-    }
+  window.INVITE_CONFIG = {
+    theme: 'white',
+    weddingDate: '2026-12-10T19:00:00',
+    weddingEnd: '2026-12-10T23:00:00',
+    storagePrefix: 'white-',
+    venueName: 'Kempinski Nile Hotel, Cairo',
+    venueLat: 30.0444,
+    venueLng: 31.2357
   };
-
-  let toastTimer = null;
-  function showToast(msg, ms = 2800){
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(()=> t.classList.remove('show'), ms);
-  }
-
-  function openInvitation(){
-    const cover = document.getElementById('coverScreen');
-    const main  = document.getElementById('mainWrap');
-
-    cover.classList.add('hidden');
-    setTimeout(()=>{
-      cover.style.display = 'none';
-      main.classList.add('visible');
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      showToast('Welcome to our wedding 🤍', 3000);
-    }, 700);
-  }
-
-  function updateCountdown(){
-    const now = new Date();
-    let diff = WEDDING_DATE - now;
-    if(diff < 0) diff = 0;
-    document.getElementById('cdDays').textContent = Math.floor(diff/(1000*60*60*24));
-    document.getElementById('cdHours').textContent = Math.floor((diff/(1000*60*60))%24);
-    document.getElementById('cdMin').textContent = Math.floor((diff/(1000*60))%60);
-    document.getElementById('cdSec').textContent = Math.floor((diff/1000)%60);
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  let currentSlot = null;
-  const fileInput = document.getElementById('fileInput');
-
-  function triggerUpload(slot){
-    currentSlot = slot;
-    fileInput.click();
-  }
-
-  fileInput.addEventListener('change', function(e){
-    const file = e.target.files[0];
-    if(!file || !currentSlot) return;
-    if(!file.type.startsWith('image/')){
-      showToast('Please choose an image file');
-      e.target.value = '';
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = function(ev){
-      const img = new Image();
-      img.onload = function(){
-        const maxW = 900;
-        const scale = Math.min(1, maxW / img.width);
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.max(1, Math.floor(img.width * scale));
-        canvas.height = Math.max(1, Math.floor(img.height * scale));
-        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-        applyPhoto(currentSlot, dataUrl);
-        store.set('botanical-photo-' + currentSlot, dataUrl);
-        showToast('Photo updated 🤍');
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-    e.target.value = '';
-  });
-
-  function applyPhoto(slot, dataUrl){
-    const imgEl = document.querySelector('img[data-role="' + slot + '-img"]');
-    if(imgEl) imgEl.src = dataUrl;
-  }
-
-  (function loadPhotos(){
-    const slots = ['bride','groom','gallery-0','gallery-1','gallery-2','gallery-3','gallery-4','gallery-5'];
-    slots.forEach(slot=>{
-      const saved = store.get('botanical-photo-' + slot);
-      if(saved) applyPhoto(slot, saved);
-    });
-  })();
-
-  function openLightbox(src){
-    document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightbox').classList.add('open');
-  }
-  function closeLightbox(){
-    document.getElementById('lightbox').classList.remove('open');
-  }
-  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeLightbox(); });
-
-  const WISHES_KEY = 'botanical-wishes';
-
-  function escapeHtml(str){
-    const div = document.createElement('div');
-    div.textContent = String(str);
-    return div.innerHTML;
-  }
-
-  function formatTime(ts){
-    const d = new Date(ts);
-    const now = new Date();
-    const diff = Math.floor((now - d) / 1000);
-    if(diff < 60) return 'just now';
-    if(diff < 3600) return Math.floor(diff/60) + ' min ago';
-    if(diff < 86400) return Math.floor(diff/3600) + ' h ago';
-    if(diff < 604800) return Math.floor(diff/86400) + ' d ago';
-    return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-  }
-
-  function getWishes(){
-    const raw = store.get(WISHES_KEY, '[]');
-    try{ return JSON.parse(raw) || []; }catch(e){ return []; }
-  }
-
-  function saveWishes(list){
-    return store.set(WISHES_KEY, JSON.stringify(list.slice(-50)));
-  }
-
-  function renderWishes(list){
-    const el = document.getElementById('wishesList');
-    const counter = document.getElementById('wishCounter');
-
-    if(!list || list.length === 0){
-      el.innerHTML = '<div class="wishes-empty">Be the first to leave a wish 🤍</div>';
-      counter.textContent = '';
-      return;
-    }
-
-    el.innerHTML = list.slice().reverse().map(w=>`
-      <div class="wish-item">
-        <button class="wish-del" onclick="deleteWish(${w.ts})">×</button>
-        <b>${escapeHtml(w.name)}</b>
-        <p>${escapeHtml(w.message)}</p>
-        <span class="wish-time">${formatTime(w.ts)}</span>
-      </div>
-    `).join('');
-
-    counter.textContent = list.length === 1
-      ? '1 wish · thank you for the love 🤍'
-      : list.length + ' wishes · thank you for the love 🤍';
-  }
-
-  function loadWishes(){ renderWishes(getWishes()); }
-
-  function submitWish(){
-    const nameEl = document.getElementById('wishName');
-    const msgEl  = document.getElementById('wishMsg');
-    const btn    = document.getElementById('wishBtn');
-    const formMsg = document.getElementById('wishFormMsg');
-
-    const name = nameEl.value.trim();
-    const message = msgEl.value.trim();
-
-    if(!name || !message){
-      formMsg.textContent = 'Please add your name and a message';
-      return;
-    }
-
-    btn.disabled = true;
-    formMsg.textContent = 'Sending...';
-
-    setTimeout(()=>{
-      try{
-        const list = getWishes();
-        list.push({ name, message, ts: Date.now() });
-        saveWishes(list);
-        renderWishes(list);
-        nameEl.value = '';
-        msgEl.value = '';
-        formMsg.textContent = 'Thank you — your wish has been sent 🤍';
-        showToast('Wish sent 🤍');
-        setTimeout(()=>{ formMsg.textContent = ''; }, 4000);
-      }catch(err){
-        formMsg.textContent = 'Could not save.';
-      }
-      btn.disabled = false;
-    }, 300);
-  }
-
-  function deleteWish(ts){
-    if(!confirm('Delete this wish?')) return;
-    const list = getWishes().filter(w => w.ts !== ts);
-    saveWishes(list);
-    renderWishes(list);
-    showToast('Wish deleted');
-  }
-
-  loadWishes();
-
-  document.getElementById('wishName').addEventListener('keydown', e=>{
-    if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('wishMsg').focus(); }
-  });
 </script>
+<script src="../js/invitation.js"></script>
 
 </body>
 </html>
